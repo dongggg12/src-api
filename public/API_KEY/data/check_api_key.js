@@ -4,7 +4,7 @@ function check_api_key(req, res, next) {
         const data_apikey = require('./data_apikey.json');
         if (!data_apikey.find(i => i.apikey == req.query.apikey)) {
             return res.jsonp({
-                error: 'APIKEY không chính xác'
+                error: 'APIKEY KHÔNG CHÍNH XÁC!'
             });
         } else {
             let APIKEY = data_apikey.find(i => i.apikey == req.query.apikey);
@@ -14,7 +14,7 @@ function check_api_key(req, res, next) {
                     message: 'APIKEY của bạn đã hết lượt request'
                 })
             } else {
-                if (APIKEY.keytype == 'free') {
+                if (APIKEY.type == 'free') {
                     APIKEY.request = APIKEY.request - 1;
                     return fs.writeFileSync(__dirname + '/data_apikey.json', JSON.stringify(data_apikey, null, 2), 'utf-8');
                 }
